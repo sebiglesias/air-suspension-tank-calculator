@@ -1,0 +1,15 @@
+{
+  "name": "Air Suspension Tank Fill Time Calculator \u2014 3 Gal vs 5 Gal & Dual Compressors",
+  "short_name": "Air Tank Calc",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#061019",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Suspension Tank Fill Time Calculator — 3 Gal vs 5 Gal & Dual Compressors — Accurate Material Estimator</title>
+  <meta name="description" content="Calculate exact air suspension tank fill times (0 to 200 PSI), pressure switch recovery times for single vs dual compressors, and airline speeds.">
+  <link rel="canonical" href="https://sebiglesias.com.ar/air-suspension-tank-calculator/">
+  <meta name="theme-color" content="#0ea5e9">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Air Suspension Tank Fill Time Calculator — 3 Gal vs 5 Gal & Dual Compressors">
+  <meta property="og:description" content="Calculate exact air suspension tank fill times (0 to 200 PSI), pressure switch recovery times for single vs dual compressors, and airline speeds.">
+  <meta property="og:url" content="https://sebiglesias.com.ar/air-suspension-tank-calculator/">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2BNDBQP0W7');
+  </script>
+
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-3381238987477190">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Air Suspension Tank Fill Time Calculator \u2014 3 Gal vs 5 Gal & Dual Compressors",
+    "url": "https://sebiglesias.com.ar/air-suspension-tank-calculator/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "description": "Calculate exact air suspension tank fill times (0 to 200 PSI), pressure switch recovery times for single vs dual compressors, and airline speeds.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the advantage of running dual compressors over a single compressor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Running dual compressors cuts your tank fill and recovery times in half. Furthermore, because each compressor runs for half the time to fill the tank, they generate far less internal thermal heat, preserving the internal PTFE piston rings and dramatically extending compressor lifespan."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is 3/8-inch airline preferred over 1/4-inch or 1/2-inch for street air ride?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "**3/8-inch airline** is considered the universal sweet spot for air suspension. 1/4\" line rises slowly and deliberately (great for precision track adjustments), while 1/2\" line slams violently up and down in under a second. 3/8\" provides a fast, crisp 2.5-second lift that is responsive without spilling your coffee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is an automated water trap mandatory on air suspension tanks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Compressing atmospheric air concentrates atmospheric humidity, which condenses into liquid water inside the aluminum air tank. Without an inline water trap filter, that water travels into electronic solenoid valve manifolds, causing sticky valves and freezing solid in winter temperatures, locking the car at slammed height."
+        }
+      }
+    ]
+  }
+]
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">🏎️ Air Ride & Lowrider Pneumatic Standards</div>
+      <h1>Air Ride Suspension Tank & Compressor Calculator</h1>
+      <p class="subtitle">Calculate tank fill times (0 to 200 PSI), recovery cycling time, single vs dual Viair compressors, and airline lift speed.</p>
+    </header>
+
+    <!-- AdSense Top Banner -->
+    <div style="text-align:center; margin: 16px 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <main class="calc-grid">
+      <!-- Inputs Card -->
+      <form class="card" id="air-suspension-tank-calculator-form" onsubmit="event.preventDefault();">
+        <h2>📐 Tank Volume & Compressor Setup</h2>
+        
+        <div class="input-row">
+          <div class="form-group">
+            <label for="tankGal">Air Suspension Tank Size</label>
+            <select id="tankGal">
+              <option value="3">3 Gallon (Compact Trunk / Slow Fill)</option>
+              <option value="5" selected>5 Gallon (Standard Golden Ratio for Air Ride)</option>
+              <option value="8">8 Gallon (High Volume Multiple Lift / Slam)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="compressorConfig">Compressor Configuration</label>
+            <select id="compressorConfig">
+              <option value="1.76">Single Viair 444C (1.76 CFM / Fast)</option>
+              <option value="2.24">Single Viair 485C Gen 2 (2.24 CFM / High Output)</option>
+              <option value="3.52" selected>Dual Viair 444C Compressors (3.52 CFM Total)</option>
+              <option value="4.48">Dual Viair 485C Compressors (4.48 CFM Total)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="pressSwitch">Pressure Switch Threshold</label>
+            <select id="pressSwitch">
+              <option value="150" selected>165 PSI On / 200 PSI Off (Standard High Pressure)</option>
+              <option value="145">110 PSI On / 145 PSI Off (Standard Low Pressure)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="airLineSize">Air Line Tubing Diameter</label>
+            <select id="airLineSize">
+              <option value="0.25">1/4-Inch DOT Line (Smooth / Controlled Rise)</option>
+              <option value="0.375" selected>3/8-Inch DOT Line (Fast / Responsive Sweet Spot)</option>
+              <option value="0.50">1/2-Inch DOT Line (Instant Slam / Hopper Speed)</option>
+            </select>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Results Card -->
+      <div class="card">
+        <h2>🎯 Air Management Fill Performance</h2>
+        
+        <div class="result-hero">
+          <div class="result-label">Recovery Fill Time (165 to 200 PSI)</div>
+          <div class="result-number" id="recoveryTime">1 min 25 sec</div>
+          <div class="result-label" style="color:#ffffff;">Quick System Re-Charge Cycle</div>
+          <div style="font-size:0.95rem; color:#bae6fd; margin-top:6px;" id="emptyFillSummary">Initial Fill (0 to 200 PSI): 4 min 12 sec</div>
+        </div>
+
+        <div class="sub-hero-grid">
+          <div class="sub-hero-col">
+            <div class="sub-hero-label">Vehicle Lift Speed</div>
+            <div class="sub-hero-val" id="liftSpeed">≈ 2.5 Seconds</div>
+            <div class="sub-hero-sub">Full air out to ride height</div>
+          </div>
+          <div class="sub-hero-col">
+            <div class="sub-hero-label">Total Electrical Draw</div>
+            <div class="sub-hero-val" id="totalAmps">46 Amps @ 12V</div>
+            <div class="sub-hero-sub">Requires 80A maxi fuse kit</div>
+          </div>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-item">
+            <div class="spec-desc">Compressor Duty Cycle</div>
+            <div class="spec-val" style="color:#4ade80;">100% @ 200 PSI (Continuous)</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-desc">Tank Material</div>
+            <div class="spec-val">Seamless Spun Aluminum</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-desc">Water Trap Drain</div>
+            <div class="spec-val">SMC Auto-Drain Required</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-desc">Valve Manifold</div>
+            <div class="spec-val">8-Valve Digital Manifold</div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Amazon Supplies Box -->
+    <section class="supplies-card">
+      <h3>🛠️ Recommended Tools, Hardware & Building Supplies</h3>
+      <div class="supplies-grid">
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">VIAIR 485C Dual Air Compressor Pack (200 PSI Platinum)</div>
+            <div class="supply-desc">100% duty cycle at 200 PSI compressors with stainless steel braided leader hoses and check valves.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=viair+dual+485c+air+compressor+pack&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">Seamless Aluminum 5-Gallon 8-Port Air Suspension Tank</div>
+            <div class="supply-desc">Corrosion-proof lightweight spun aluminum air tank with 200 PSI working pressure rating.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=seamless+aluminum+air+tank+5+gallon&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">SMC Water Trap Air Filter (3/8" NPT Ports)</div>
+            <div class="supply-desc">Removes condensed water and compressor oil from airline before it reaches sensitive manifold valves.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=smc+water+trap+3+8+npt+air+ride&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+        <div class="supply-item">
+          <div>
+            <div class="supply-title">DOT Approved 3/8" Nylon Air Brake Tubing (50ft Roll)</div>
+            <div class="supply-desc">High burst pressure (1,000 PSI) UV stabilized air suspension line with push-to-connect fittings.</div>
+          </div>
+          <a href="https://www.amazon.com/s?k=dot+air+brake+tubing+3+8+50ft&tag=sebiglesias-20" target="_blank" rel="nofollow noopener" class="btn-amazon">Check on Amazon →</a>
+        </div>
+      </div>
+      <p style="font-size:0.75rem; color:#94a3b8; margin-top:14px; margin-bottom:0; text-align:center;">
+        ⚖️ <em>Affiliate Notice: As an Amazon Associate, this site earns from qualifying purchases at no additional cost to you. We strictly link to trade-grade construction tools, hardware, and safety materials.</em>
+      </p>
+    </section>
+
+    <!-- FAQ Section for SEO -->
+    <section class="faq-section">
+      <h2 style="font-size:1.35rem; color:#ffffff; margin-bottom:16px;">Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <div class="faq-q">What is the advantage of running dual compressors over a single compressor?</div>
+        <div class="faq-a">Running dual compressors cuts your tank fill and recovery times in half. Furthermore, because each compressor runs for half the time to fill the tank, they generate far less internal thermal heat, preserving the internal PTFE piston rings and dramatically extending compressor lifespan.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why is 3/8-inch airline preferred over 1/4-inch or 1/2-inch for street air ride?</div>
+        <div class="faq-a">**3/8-inch airline** is considered the universal sweet spot for air suspension. 1/4" line rises slowly and deliberately (great for precision track adjustments), while 1/2" line slams violently up and down in under a second. 3/8" provides a fast, crisp 2.5-second lift that is responsive without spilling your coffee.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why is an automated water trap mandatory on air suspension tanks?</div>
+        <div class="faq-a">Compressing atmospheric air concentrates atmospheric humidity, which condenses into liquid water inside the aluminum air tank. Without an inline water trap filter, that water travels into electronic solenoid valve manifolds, causing sticky valves and freezing solid in winter temperatures, locking the car at slammed height.</div>
+      </div>
+    </section>
+
+    <!-- Bottom AdSense Banner -->
+    <div style="text-align:center; margin: 32px 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <footer>
+      <p>© 2026 <a href="https://sebiglesias.com.ar/">sebiglesias.com.ar</a> · Air Suspension Tank Fill Time Calculator — 3 Gal vs 5 Gal & Dual Compressors. Educational and trade reference tool.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
